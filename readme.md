@@ -1,6 +1,6 @@
 # Finance Tracker API (Django + JWT)
 
-##  Overview
+## Overview
 
 This project is a backend API for managing financial records such as income and expenses.
 It is built using Django and Django REST Framework, with JWT-based authentication and role-based access control.
@@ -15,7 +15,7 @@ Each role has different permissions for accessing and modifying data.
 
 ---
 
-##  Tech Stack
+## Tech Stack
 
 * Python
 * Django
@@ -40,51 +40,19 @@ The project uses JWT (JSON Web Token) for authentication.
 ### Admin
 
 * Can create, update, and delete financial records
-* Can view all records and also single record
-* Can access dashboard and trends
+* Can view all records and individual records
+* Can access dashboard , trends and also access recent transactions at dashboard
 
 ### Analyst
 
 * Can view records
-* Can access dashboard and trends
+* Can access dashboard ,trends and also access recent transactions at dashboard
 * Cannot modify data
 
 ### Viewer
 
-* Can only access dashboard APIs
+* Can only access dashboard APIs but not access recent transactions at dashboard
 * Cannot access records directly
-
----
-
-## API Endpoints
-
-### Authentication
-
-* `POST /api/token/` → Get access & refresh token
-* `POST /api/token/refresh/` → Refresh access token
-
----
-
-###  User
-
-* `POST /register/` → Register a new user
-
----
-
-###  Financial Records
-
-* `GET /records/` → List records
-* `POST /records/` → Create record (Admin only)
-* `GET /records/<id>/` → Get single record
-* `PUT /records/<id>/` → Update record
-* `DELETE /records/<id>/` → Delete record
-
----
-
-### Dashboard & Insights
-
-* `GET /dashboard/` → Summary, category-wise data, recent transactions
-* `GET /trends/` → Monthly or weekly trends
 
 ---
 
@@ -99,15 +67,87 @@ The project uses JWT (JSON Web Token) for authentication.
 
 ---
 
-##  Assumptions
+## API Explanation
 
-* As per assignment requirements, only a limited number of users exist.
-* Financial records are primarily created by the Admin user.
-* Data is not isolated per user to keep the implementation simple and aligned with the assignment scope.
+### Authentication
+
+* `POST /api/token/`
+  Used to log in and receive access and refresh tokens
+
+* `POST /api/token/refresh/`
+  Used to generate a new access token using the refresh token
 
 ---
 
-##  How to Run the Project
+### Register User
+
+* `POST /register/`
+  Creates a new user with a specific role (Admin, Analyst, Viewer)
+
+---
+
+### Financial Records
+
+* `GET /records/`
+  Returns list of financial records (based on user role)
+
+* `POST /records/`
+  Allows Admin to create a new financial record
+
+* `GET /records/<id>/`
+  Fetch a single record
+
+* `PUT /records/<id>/`
+  Update a record (Admin only)
+
+* `DELETE /records/<id>/`
+  Delete a record (Admin only)
+
+---
+
+### Dashboard
+
+* `GET /dashboard/`
+  Returns:
+
+  * Total income
+  * Total expense
+  * Net balance
+  * Category-wise summary
+  * Recent transactions
+
+---
+
+### Trends
+
+* `GET /trends/?type=monthly` → Monthly data
+* `GET /trends/?type=weekly` → Weekly data
+
+---
+
+## Assumptions
+
+* As per assignment requirements, only a limited number of users exist
+* Financial records are primarily created by the Admin user
+* Data is not isolated per user to keep the implementation simple and aligned with the assignment scope
+
+---
+
+## Tradeoffs Considered
+
+* The system does not isolate financial data per user using `created_by` filtering
+  This decision was made based on the assumption that only a single Admin creates records
+
+* A simple role-based permission system is implemented using conditional checks instead of Django’s built-in permission classes
+  This keeps the logic easy to understand for the assignment
+
+* SQLite is used instead of PostgreSQL to simplify setup
+
+* Token refresh handling is not automated on the frontend side since the focus is backend
+
+---
+
+## How to Run the Project
 
 1. Clone the repository
 2. Create virtual environment
@@ -115,7 +155,7 @@ The project uses JWT (JSON Web Token) for authentication.
 
 
 pip install -r requirements.txt
-```
+
 
 4. Apply migrations
 
@@ -130,7 +170,9 @@ python manage.py migrate
 python manage.py runserver
 
 
-##  Example Flow
+---
+
+## Example Flow
 
 1. Register a user
 2. Login to get JWT token
@@ -144,8 +186,9 @@ Authorization: Bearer <access_token>
 
 ---
 
-##  Conclusion
+## Conclusion
 
-This project demonstrates how authentication and role-based access can be implemented in a backend system using Django REST Framework. It also provides practical experience with API design, data handling, and security concepts.
+This project demonstrates how authentication and role-based access can be implemented using Django REST Framework.
+It also helped in understanding API design, JWT authentication, and role-based control in a practical way.
 
 ---
