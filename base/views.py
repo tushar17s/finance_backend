@@ -5,7 +5,8 @@ from django.db.models import Sum
 from .models import FinancialRecord, AppUser
 from .serializers import FinancialRecordSerializer, RegisterUserSerializer
 from django.db.models.functions import TruncMonth, TruncWeek
-
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 
 #  Helper: Get user safely
 def get_user_from_request(request):
@@ -129,8 +130,7 @@ def record_detail(request, pk):
 
 
 #  REGISTER USER
-from django.contrib.auth.models import User
-from django.contrib.auth.hashers import make_password
+
 
 @api_view(['POST'])
 def register_user(request):
