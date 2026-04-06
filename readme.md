@@ -118,6 +118,12 @@ The project uses JWT (JSON Web Token) for authentication.
 
 ---
 
+## API Testing (Postman)
+
+All APIs were tested using Postman.
+
+ Postman Collection: https://tushar17304-8654549.postman.co/workspace/tushar's-Workspace~4428b086-b2dd-4b1b-8a83-de89db428cee/collection/51863144-1c04b9b6-17f3-4a95-9624-8f4fef49b376?action=share&source=copy-link&creator=51863144
+
 ##  Data Handling
 
 The backend supports filtering of financial records based on:
