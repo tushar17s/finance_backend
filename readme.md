@@ -118,6 +118,19 @@ The project uses JWT (JSON Web Token) for authentication.
 
 ---
 
+##  Data Handling
+
+The backend supports filtering of financial records based on:
+- Category (e.g., FOOD, RENT)
+- Transaction type (INCOME / EXPENSE)
+
+Filtering is implemented using query parameters in the records API.
+
+Example:
+GET /records/?category=FOOD&type=EXPENSE
+
+All data is stored persistently using SQLite database, ensuring that records remain available across sessions.
+
 ### Trends
 
 * `GET /trends/?type=monthly` → Monthly data
